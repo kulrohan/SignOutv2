@@ -8,6 +8,11 @@ app.get('/', (req, res)=>{
   res.sendFile(__dirname + '/index.html');
 });
 
+app.get('/ajax', (req, res)=>{
+  console.log('Get Request encountered');
+  var sample_JSON = {'elmt1':'test', 'elmt2':'test2'};
+  res.send(sample_JSON);
+});
 
 app.listen(8080, ()=>{
   console.log('SignOut is listening for web requests on TCP port 8080.');
