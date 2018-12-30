@@ -1,0 +1,22 @@
+{
+  "name": "sign-out",
+  "version": "2.0.0",
+  "description": "SignOut has all capabilities of the hardware-software version, but now everything is built on a full-stack (hopefully cloud-based) web application.",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "keywords": [
+    "PostgreSQL",
+    "Node.js",
+    "Express.js",
+    "jQuery",
+    "AJAX",
+    "HTML",
+    "CSS",
+    "Javascript",
+    "AWS"
+  ],
+  "author": "Rohan Kulkarni",
+  "license": "ISC"
+}
