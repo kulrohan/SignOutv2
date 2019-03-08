@@ -21,6 +21,7 @@
   "author": "Rohan Kulkarni",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.18.3"
+    "body-parser": "^1.18.3",
+    "chart.js": "^2.7.3"
   }
 }
