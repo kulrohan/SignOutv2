@@ -54,46 +54,6 @@ $(document).ready(function() {
       url: "/student_record?loc=" + location,
       success: alert('Recorded successfully!')
     });
-    // $.ajax({
-    //   type: "GET",
-    //   url : '/max-entry',
-    //   success: function(result){
-    //     console.log('success');
-    //     console.log(result.max);
-    //     var next_entry = result.max + 1;
-    //     var location = document.getElementById("stud-loc").value;
-    //     var post_json = {Entry: next_entry, id: identification, location: location, time: null}; //time is null, to be added in server
-    //     console.log(post_json);
-    //     window.location = '/student_record?entry=' + next_entry + '&loc=' + location
-    //     alert('Recorded successfully!')
-    //
-    //   }
-    // });
-    // $.ajax({
-    //   type: "GET",
-    //   url : '/max-entry',
-    //   success: function(result){
-    //     console.log('success');
-    //     console.log(result.max);
-    //     var next_entry = result.max + 1;
-    //     var location = document.getElementById("stud-loc").value;
-    //     var post_json = {Entry: next_entry, id: identification, location: location, time: null}; //time is null, to be added in server
-    //     console.log(post_json);
-    //     window.location = '/ajax-post?entry=' + next_entry + '&id=' + identification + '&loc=' + location
-    //     alert('Recorded successfully!')
-    //
-    //
-    //   }
-    // });
-    // window.location = '/student_record?test=val';
-        // $.ajax({
-        //   type: "GET",
-        //   url: "/student_record?test=" + result.max,
-        //   success: function(){
-        //   }
-        // })
-      // }
-    // });
 
   });
 

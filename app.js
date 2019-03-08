@@ -8,7 +8,6 @@ app.use(express.static("public"));  //serves all static files on the localhost
 
 //use the public folder bc you do not want to serve the app.js and package.json static files to users
 app.use(bodyParser.json());
-// fs.truncate('result.json', 0, function(){});
 
 var login_id = null;
 var maxen = null;
@@ -22,22 +21,6 @@ const pool = new Pool({
   port: 5431,
 });
 
-//db information, establishes connection
-
-function run_sql(sql){
-  pool.query(sql, (err, res) => {
-    if (err) {
-      console.log(err);
-    }
-    if (res) { //get request
-      console.log('The command ' + sql + ' was executed.');
-      var output = res.rows; //res.rows is an array
-      console.log(output); //or,
-      output = JSON.stringify(output[0]);//THE OUTPUT VALUE IS TEMPORARILY SET TO ZERO FOR POST time REQUEST. CHANGE THIS INTO A FOR LOOP. //turn this into a for loop
-      fs.writeFile('result.json', output, ()=>{})
-    }
-  });
-}
 
 app.get('/', (req, res)=>{
   res.sendFile(__dirname + '/public/views/intro.html');
@@ -112,13 +95,6 @@ app.get('/workspace', (req, res)=>{
   res.sendFile(__dirname + '/public/views/workspace.html')
 });
 
-// app.get('/login/authenticate', (req, res)=>{
-//   console.log('authenticating');
-//   var username = req.query.username;
-//   var pwd = req.query.pwd;
-//   //these are given in the url as queries: /authenticate?username=sample&pwd=sample. Use req to extract
-//   console.log(username + ' ' + pwd);
-// });
 
 app.get('/log/ajax-get', (req, res)=>{
   console.log('Get Request encountered');
@@ -150,41 +126,33 @@ app.get('/max-entry', (req, res)=>{
 
 });
 
-function get_maxen(){
-  pool.query('SELECT MAX(entry) FROM records;', (err, response)=>{
-    if (err){
-      console.log(err);
-    }
+app.get('/location-data', (req, res)=>{
+  //bathroom, main office, nurse, , library other
+  pool.query("SELECT entry FROM records WHERE(location = 'Bathroom');", (err, response)=>{
+    if (err){console.log(err);}
     if (response){
-      maxen = response.rows[0]
+      console.log(response.rows.length);
+      pool.query("SELECT entry FROM records WHERE(location = 'Main Office');", (err, r2)=>{
+        if (err){console.log(err);}
+        if (r2){
+          console.log(r2.rows.length);
+          pool.query("SELECT entry FROM records WHERE(location = 'Nurse');", (err, r3)=>{
+            if (err){console.log(err);}
+            if (response){
+              console.log(r3.rows.length);
+              pool.query("SELECT * FROM records;", (err, r4)=>{
+                if (err){console.log(err);}
+                if (r4){
+                  console.log(r4.rows.length - r2.rows.length - r3.rows.length - response.rows.length);
+                }
+              });
+            }
+          });
+        }
+      });
     }
   });
-}
-
-app.get('/location-data', (req, res)=>{
-  pool.query()
 });
-
-// app.post('/ajax-post', (req, res)=>{
-//   console.log('post request encountered');
-//   pool.query('SELECT NOW()', (err, res) => {
-//     if (err) {
-//       console.log(err);
-//     }
-//     if (res) {
-//       var output = res.rows;
-//       output = JSON.stringify(output[0]);
-//       fs.writeFile('result.json', output, ()=>{
-//         var dt_obj = JSON.parse(fs.readFileSync('result.json', 'utf8'));
-//         var dt = dt_obj.now
-//         var dt_obj = JSON.parse(fs.readFileSync('result.json', 'utf8'));
-//         var dt = dt_obj.now
-//         JSON.stringify(req.body);
-//         run_sql("INSERT INTO records VALUES(" + req.body.Entry + "," + req.body.id + ",'" + req.body.location + "','" + dt + "')");
-//       });
-//     }
-//   });
-// });
 
 app.get('/ajax-post', (req, response)=>{
   pool.query('SELECT NOW()', (err, res) => { //replace with python script for dt
