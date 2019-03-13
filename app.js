@@ -194,16 +194,20 @@ app.get('/time', (req, res)=>{
          //res.send only works in asynchronous--> after promise
 
          //outputs last time
-        // var prom = new Promise(function(){ //asynchronous callback. Easier if this section is synchronous
+        var prom = new Promise(function(){ //asynchronous callback. Easier if this section is synchronous
           var time = response.rows[0].time;
           time = time.split(' ');
-          console.log(time); //this is the maximum time value
+          // console.log(time); //this is the maximum time value
           //values needed: 1 (month),2 (day),3 (year)
           var end_date = {'m':time[1], 'd':time[2], 'y':time[3]}
           pool.query("SELECT time FROM records", (err, time_res)=>{
             if (err){console.log(err);}
             if (time_res){
-              var time_list = {};
+              var time_list = {values: []};
+              function timesend(){
+                // console.log(time_list);
+                res.json(time_list);
+              }
               for (z=0; z < (time_res.rows.length); z++){
                 var check_date = time_res.rows[z].time; //assigns check_date to entire time string (from db)
                 check_date = check_date.split(' ');
@@ -214,21 +218,24 @@ app.get('/time', (req, res)=>{
                     zcheck = zcheck.slice(1);
                     // console.log(zcheck); //this works --> convert to int
                     zcheck = Number(zcheck); //int conversion
+                    check_date[2] = zcheck;
                   }
-                  else{zcheck = Number(zcheck);}
-                  // else {console.log(zcheck);}
+                  else{
+                    zcheck = Number(zcheck);
+                    check_date[2] = zcheck;
+                  }
 
                   if (zcheck + 5 >= time[2]){
-                    console.log(check_date); //this WORKS! the last 5 days are the only returned values
-                    //next step: if this is ok, add the value to a json, and send the json after all is over (maybe use finally? or just last value in for loop)
-                    res.json({"test":'val'}); //this throws error: cannot sned header again. this is bc piechart is also sending a res.. maybe do a link
+                    // console.log(check_date); //this WORKS! the last 5 days are the only returned values
+                    time_list.values.push(check_date);
                   }
-
                 }
               }
+              timesend();
             }
-          })
-        // });
+          });
+
+        });
       }
   });
 });

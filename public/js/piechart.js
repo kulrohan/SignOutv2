@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
   google.charts.load('current', {'packages':['corechart']});
 
   $.ajax({
@@ -30,6 +29,9 @@ $(document).ready(function(){
 
       }
   });
+
+
+
 
 
 });
