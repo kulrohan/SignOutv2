@@ -1,7 +1,7 @@
 {
   "name": "sign-out",
   "version": "2.0.0",
-  "description": "SignOut has all capabilities of the hardware-software version, but now everything is built on a full-stack (hopefully cloud-based) web application.",
+  "description": "SignOut has all capabilities of the hardware-software version, but now everything is built on a full-stack web application.",
   "main": "app.js",
   "scripts": {
     "test": "node app.js"
@@ -22,6 +22,5 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "chart.js": "^2.7.3"
   }
 }

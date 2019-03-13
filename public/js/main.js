@@ -100,5 +100,4 @@ $(document).ready(function() {
     window.location = '/analytics'; //change to analytics page
   });
 
-
 });

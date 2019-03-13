@@ -131,19 +131,16 @@ app.get('/location-data', (req, res)=>{
   pool.query("SELECT entry FROM records WHERE(location = 'Bathroom');", (err, response)=>{
     if (err){console.log(err);}
     if (response){
-      console.log(response.rows.length);
       pool.query("SELECT entry FROM records WHERE(location = 'Main Office');", (err, r2)=>{
         if (err){console.log(err);}
         if (r2){
-          console.log(r2.rows.length);
           pool.query("SELECT entry FROM records WHERE(location = 'Nurse');", (err, r3)=>{
             if (err){console.log(err);}
             if (response){
-              console.log(r3.rows.length);
               pool.query("SELECT * FROM records;", (err, r4)=>{
                 if (err){console.log(err);}
                 if (r4){
-                  console.log(r4.rows.length - r2.rows.length - r3.rows.length - response.rows.length);
+                  res.send({Bathroom:response.rows.length, Main_Office:r2.rows.length, Nurse:r3.rows.length, Other:(r4.rows.length - r2.rows.length - r3.rows.length - response.rows.length)})
                 }
               });
             }
@@ -166,7 +163,6 @@ app.get('/ajax-post', (req, response)=>{
       });
     }
   });
-
 });
 
 app.post('/student_record', (req, response)=>{
@@ -191,6 +187,47 @@ app.post('/student_record', (req, response)=>{
   });
 });
 
+app.get('/time', (req, res)=>{
+  pool.query("SELECT time FROM records ORDER BY entry DESC LIMIT 1", (err, response)=>{
+      if (err){console.log(err);}
+      if (response){
+         //outputs last time
+        var prom = new Promise(function(){ //synchronous callback. Easier if this section is synchronous
+          var time = response.rows[0].time;
+          time = time.split(' ');
+          //values needed: 1 (month),2 (day),3 (year)
+          var end_date = {'m':time[1], 'd':time[2], 'y':time[3]}
+          pool.query("SELECT time FROM records", (err, time_res)=>{
+            if (err){console.log(err);}
+            if (time_res){
+              var time_list = {};
+              for (z=0; z < (time_res.rows.length); z++){
+                var check_date = time_res.rows[z].time;
+                check_date = check_date.split(' ');
+                if (check_date[1] == time[1] && check_date[3] == time[3]){
+                  console.log('figure this out');
+                }
+              }
+            }
+          })
+        });
+      }
+  });
+});
+
+
+app.get('/analytics/filter-log', (req, res)=>{
+  console.log(req.query.filter + ' ' + req.query.type);
+  pool.query("SELECT * FROM records WHERE (" + req.query.type + "='" + req.query.filter + "')", (err, response)=>{
+      if (err){console.log(err);}
+      if (response){
+        console.log(response.rows);
+        res.send(response.rows);
+      }
+  });
+
+
+});
 
 app.listen(8080, ()=>{
   console.log('SignOut is listening for web requests on TCP port 8080.');

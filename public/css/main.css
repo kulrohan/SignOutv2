@@ -10,6 +10,23 @@
   background-color: white;
 }
 
+.right-img{
+  float:right;
+  margin-right: 7%;
+  margin-top: -24%;
+}
+
+@media only screen and (width:320px){
+  .student-rec-logo{
+    margin-left: -600% !important
+  }
+  .right-img{
+    float:right;
+    margin-right: 1%;
+    margin-top: -30%;
+  }
+}
+
 
 .title_both{
   position: relative;
@@ -74,11 +91,7 @@
   margin-top: 3%;
 }
 
-.right-img{
-  float:right;
-  margin-right: 7%;
-  margin-top: -24%;
-}
+
 
 
 *{
@@ -97,6 +110,7 @@
   border-style: solid;
   border-radius: 10%;
   border-width: 2px;
+  padding: 0.5rem 0.25rem !important;
 }
 
 #login-button{
@@ -126,17 +140,7 @@
   border-width: 2px;
 }
 
-.logout{
-    font-weight: bold;
-    font-size: 15px;
-    color: #42c2f4;
-    transition: transform 500ms ease;
-    margin-left: 5px;
-    border-style: solid;
-    border-radius: 10%;
-    border-color: #42c2f4 !important;
-    border-width: 2px;
-}
+
 
 .form-align{
   margin-left: 110px;
