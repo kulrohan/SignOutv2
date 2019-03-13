@@ -59,6 +59,13 @@
   transform: scale(1.15);
 }
 
+.zoombit{
+  transition: 500ms transform ease;
+}
+.zoombit:hover{
+  transform: scale(1.1);
+}
+
 .navborder{
   border-color: #c4c4c4;
   /* gray */

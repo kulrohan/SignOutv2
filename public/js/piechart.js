@@ -1,4 +1,3 @@
-// Load google charts
 $(document).ready(function(){
 
   google.charts.load('current', {'packages':['corechart']});
@@ -18,14 +17,14 @@ $(document).ready(function(){
         ]);
 
         // Optional; add a title and set the width and height of the chart
-        var options = {'title':'Location and Number of Student Entries', 'width':350, 'height':225,'is3D':true};
+        var options = {'title':'Location and Number of Student Entries', 'width':325, 'height':225,'is3D':true};
 
         // Display the chart inside the <div> element with id="piechart"
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
         chart.draw(data, options);
       }
 
-      console.log(result);
+      // console.log(result);
         google.charts.setOnLoadCallback(drawChart)
 
 

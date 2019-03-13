@@ -15,6 +15,7 @@
 		<script src="js/main.js"></script>
 		<script src="js/filter.js"></script>
 		<script src="js/piechart.js"></script>
+		<script src="js/timeBar.js"></script>
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 
@@ -62,13 +63,13 @@
 			<div class="container" style="padding-top: 3%; width:100%">
 
 				<div class="row">
-					<div id="admin-record" class="zoom fiftyhundred col-md-6">
+					<div id="admin-record" class="zoombit fiftyhundred col-md-6">
 						<p class="title_both text-center" style="padding-bottom:10px;">RECORD</p>
 						<p class="text_both text-center" style="padding-top:5%">
 							Record a Student ID and a Location <br> to the Database
 						</p>
 					</div>
-					<div id="admin-log" class="zoom fiftyhundred col-md-6" style="">
+					<div id="admin-log" class="zoombit fiftyhundred col-md-6" style="">
 						<p class="title_both text-center" style="padding-bottom:10px;">LOG</p>
 						<p class="text_both text-center" style="padding-top:5%">
 							View Student Records and Data<br>For Every Single User - In Real Time
@@ -76,10 +77,16 @@
 					</div>
 				</div>
 
-				<div id="piechart" style="display: flex; align-items: center; justify-content: center;"></div>
+				<div class="row" style="margin-top:3vw;">
+					<div class="col-md-6">
+						<div id="piechart" style="display: flex; align-items: center; justify-content: center;"></div>
+					</div>
+					<div class="col-md-6">
+						<div id="bartime" style="display: flex; align-items: center; justify-content: center;"></div>
+					</div>
+				</div>
 
-
-				<div style="margin-top:10vw; text-align:center;">
+				<div style="margin-top:3vw; text-align:center;">
 						<div class="form-group"  style=" display: inline-block;">
 							<div  style=" display: inline-block;">
 								<label class="text-standard col-sm-2"><u>Filter:</u></label>
