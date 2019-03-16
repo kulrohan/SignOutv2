@@ -102,7 +102,7 @@ $(document).ready(function(){
               title: 'Number of Entries',
               viewWindow: {
                 min: 0,
-                max: 10
+                max: 12
               },
               gridlines: {'count':10}
             },

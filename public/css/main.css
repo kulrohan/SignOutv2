@@ -159,12 +159,12 @@
 }
 
 /* .inputs{
-  margin-left: -30%;
-  width: 115%;
+margin-left: -30%;
+width: 115%;
 } */
 
 .navbar-fixed-top {
-    height: 100px; /* Whatever you want. */
+  height: 100px; /* Whatever you want. */
 }
 
 #logo{
@@ -200,54 +200,54 @@
 }
 
 .brennan{
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
 
 #location{
-	padding-top:50px;
-	text-align: center;
+  padding-top:50px;
+  text-align: center;
 }
 #weather{
-	text-align: center;
+  text-align: center;
 }
 #datetime{
-	text-align: center;
+  text-align: center;
 }
 #humidity{
-	text-align: center;
+  text-align: center;
 }
 #rating{
-	padding-top: 70px !important;
-	text-align: center;
-	right: 25%;
-	bottom: 30%;
+  padding-top: 70px !important;
+  text-align: center;
+  right: 25%;
+  bottom: 30%;
 }
 #outside{
-	text-align: center;
-	font-family: Roboto;
+  text-align: center;
+  font-family: Roboto;
 }
 #inside{
-	text-align: center;
-	font-family: Roboto;
+  text-align: center;
+  font-family: Roboto;
 }
 
 .arrange{
-	padding-top:10px;
-	padding-left: 500px;
+  padding-top:10px;
+  padding-left: 500px;
 
 }
 
 .graph_arrange{
-	padding-top:30px;
+  padding-top:30px;
 }
 
 .gray {color:#4d4d4d; }
 .pie_arrange{
-	position:absolute;
-	transform: scale(1.25);
-	right:607px;
-	bottom:40px;
+  position:absolute;
+  transform: scale(1.25);
+  right:607px;
+  bottom:40px;
 }

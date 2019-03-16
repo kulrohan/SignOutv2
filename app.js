@@ -12,7 +12,6 @@ app.use(bodyParser.json());
 var login_id = null;
 var maxen = null;
 
-
 const pool = new Pool({
   user: 'signout_admin',
   host: 'localhost',
@@ -114,15 +113,15 @@ app.get('/log/ajax-get', (req, res)=>{
 
 app.get('/max-entry', (req, res)=>{
 
-    console.log('max entry number get request encountered');
-    pool.query('SELECT MAX(entry) FROM records;', (err, response)=>{
-      if (err){
-        console.log(err);
-      }
-      if (response){
-        res.json(response.rows[0]);
-      }
-    })
+  console.log('max entry number get request encountered');
+  pool.query('SELECT MAX(entry) FROM records;', (err, response)=>{
+    if (err){
+      console.log(err);
+    }
+    if (response){
+      res.json(response.rows[0]);
+    }
+  })
 
 });
 
@@ -189,54 +188,54 @@ app.post('/student_record', (req, response)=>{
 
 app.get('/time', (req, res)=>{
   pool.query("SELECT time FROM records ORDER BY entry DESC LIMIT 1", (err, response)=>{
-      if (err){console.log(err);}
-      if (response){
-         //res.send only works in asynchronous--> after promise
+    if (err){console.log(err);}
+    if (response){
+      //res.send only works in asynchronous--> after promise
 
-         //outputs last time
-        var prom = new Promise(function(){ //asynchronous callback. Easier if this section is synchronous
-          var time = response.rows[0].time;
-          time = time.split(' ');
-          // console.log(time); //this is the maximum time value
-          //values needed: 1 (month),2 (day),3 (year)
-          var end_date = {'m':time[1], 'd':time[2], 'y':time[3]}
-          pool.query("SELECT time FROM records", (err, time_res)=>{
-            if (err){console.log(err);}
-            if (time_res){
-              var time_list = {values: []};
-              function timesend(){
-                // console.log(time_list);
-                res.json(time_list);
-              }
-              for (z=0; z < (time_res.rows.length); z++){
-                var check_date = time_res.rows[z].time; //assigns check_date to entire time string (from db)
-                check_date = check_date.split(' ');
-                if (check_date[1] == time[1] && check_date[3] == time[3]){ //if the month and year are the same
-                  var zcheck = check_date[2].toString(); //convert to string to check 0-
-                  // console.log(zcheck.charAt(0)); //will be 0 (for 08,9,etc.), 1 (11, 12, 13), or 2 (23, 24), or 3 (31, 30)
-                  if (zcheck.charAt(0)=='0'){
-                    zcheck = zcheck.slice(1);
-                    // console.log(zcheck); //this works --> convert to int
-                    zcheck = Number(zcheck); //int conversion
-                    check_date[2] = zcheck;
-                  }
-                  else{
-                    zcheck = Number(zcheck);
-                    check_date[2] = zcheck;
-                  }
+      //outputs last time
+      var prom = new Promise(function(){ //asynchronous callback. Easier if this section is synchronous
+        var time = response.rows[0].time;
+        time = time.split(' ');
+        console.log(time); //this is the maximum time value
+        //values needed: 1 (month),2 (day),3 (year)
+        var end_date = {'m':time[1], 'd':time[2], 'y':time[3]}
+        pool.query("SELECT time FROM records", (err, time_res)=>{
+          if (err){console.log(err);}
+          if (time_res){
+            var time_list = {values: []};
+            function timesend(){
+              console.log(time_list);
+              res.json(time_list);
+            }
+            for (z=0; z < (time_res.rows.length); z++){
+              var check_date = time_res.rows[z].time; //assigns check_date to entire time string (from db)
+              check_date = check_date.split(' ');
+              if (check_date[1] == time[1] && check_date[3] == time[3]){ //if the month and year are the same
+                var zcheck = check_date[2].toString(); //convert to string to check 0-
+                // console.log(zcheck.charAt(0)); //will be 0 (for 08,9,etc.), 1 (11, 12, 13), or 2 (23, 24), or 3 (31, 30)
+                if (zcheck.charAt(0)=='0'){
+                  zcheck = zcheck.slice(1);
+                  // console.log(zcheck); //this works --> convert to int
+                  zcheck = Number(zcheck); //int conversion
+                  check_date[2] = zcheck;
+                }
+                else{
+                  zcheck = Number(zcheck);
+                  check_date[2] = zcheck;
+                }
 
-                  if (zcheck + 5 >= time[2]){
-                    // console.log(check_date); //this WORKS! the last 5 days are the only returned values
-                    time_list.values.push(check_date);
-                  }
+                if (zcheck + 5 > time[2]){
+                  // console.log(check_date); //this WORKS! the last 5 days are the only returned values
+                  time_list.values.push(check_date);
                 }
               }
-              timesend();
             }
-          });
-
+            timesend();
+          }
         });
-      }
+
+      });
+    }
   });
 });
 
@@ -244,11 +243,11 @@ app.get('/time', (req, res)=>{
 app.get('/analytics/filter-log', (req, res)=>{
   console.log(req.query.filter + ' ' + req.query.type);
   pool.query("SELECT * FROM records WHERE (" + req.query.type + "='" + req.query.filter + "')", (err, response)=>{
-      if (err){console.log(err);}
-      if (response){
-        console.log(response.rows);
-        res.send(response.rows);
-      }
+    if (err){console.log(err);}
+    if (response){
+      console.log(response.rows);
+      res.send(response.rows);
+    }
   });
 
 
